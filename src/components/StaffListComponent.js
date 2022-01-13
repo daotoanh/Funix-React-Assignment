@@ -1,15 +1,39 @@
 import React, { Component } from 'react'
 import { Card, CardText, CardTitle } from 'reactstrap'
-import dateFormat from 'dateformat'
 
 class StaffList extends Component {
 
     constructor(props) {
         super(props)
 
+        this.state = {
+            selectedStaff: null
+        }
     }
 
- 
+    onStaffSelect(staff) {
+        this.setState({ selectedStaff: staff })
+    }
+
+
+    renderStaff(staff) {
+        if (staff != null) {
+            return (
+                <Card>
+                    <h4>Họ và tên: {staff.name}</h4>                 
+                </Card>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <div className='container'>
+                        <h5>Bấm vào tên để xem thông tin</h5>
+                    </div>
+                </div>
+            )
+        }
+    }
 
 
 
@@ -31,6 +55,9 @@ class StaffList extends Component {
             <div className="container">
                 <div className="row">
                     {staffList}
+                </div>
+                <div className="row">
+                    {this.renderStaff(this.state.selectedStaff)}
                 </div>
             </div>
         )
