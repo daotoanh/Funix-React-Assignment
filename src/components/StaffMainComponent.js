@@ -1,24 +1,25 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Navbar, NavbarBrand } from 'reactstrap'
 import Staffslist from './StaffListComponent'
 import StaffDetail from './StaffDetailComponent'
 import { STAFFS } from '../shared/StaffList'
+import Footer from './FooterComponent'
 
 
 class Main extends Component {
 
     constructor(props) {
-      super(props)
-  
-      this.state = {
-        staffs: STAFFS,
-        selectedStaff: null
-      }
+        super(props)
+
+        this.state = {
+            staffs: STAFFS,
+            selectedStaff: null
+        }
     }
 
 
     onStaffSelect(staffId) {
-        this.setState({ selectedStaffs: staffId});
+        this.setState({ selectedStaffs: staffId });
     }
 
     render() {
@@ -30,9 +31,10 @@ class Main extends Component {
                     </div>
                 </Navbar>
                 <Staffslist staffs={this.state.staffs}
-                onClick={(staffId) => this.onStaffSelect(staffId)} />
-               <StaffDetail
-                  staff={this.state.staffs.filter((staff) => staff.id === this.state.selectedStaff)[0]} />
+                    onClick={(staffId) => this.onStaffSelect(staffId)} />
+                <StaffDetail
+                    staff={this.state.staffs.filter((staff) => staff.id === this.state.selectedStaff)[0]} />
+                <Footer />
             </div>
         )
     }
