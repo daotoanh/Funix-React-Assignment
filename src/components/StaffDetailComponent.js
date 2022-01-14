@@ -32,15 +32,12 @@ function RenderStaff({staff}) {
 }
 const StaffDetail = (props) => {
     
-
-    
-
     if(props.staff != null) {
         return(
             <div className='container'>  
             <div className='row'>
             <Breadcrumb>
-               <BreadcrumbItem><Link to='/Staffs'>Nhân Viên</Link></BreadcrumbItem>
+               <BreadcrumbItem>Nhân Viên</BreadcrumbItem>
                <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
             </Breadcrumb>
             <RenderStaff staff={props.staff}/>

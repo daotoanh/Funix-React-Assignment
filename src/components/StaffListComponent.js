@@ -2,11 +2,9 @@ import React from 'react'
 import { Card, CardImg, CardTitle } from 'reactstrap'
 
 
-
-
 function RenderStaffList({ staff, onClick }) {
     return (
-        <Card>
+        <Card onClick={() => onClick(staff.id)}>
             <CardImg src={staff.image} alt={staff.name} />
             <CardTitle className='center'>{staff.name}</CardTitle>           
         </Card>
