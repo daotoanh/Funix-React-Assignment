@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand } from 'reactstrap'
 import Staffslist from './StaffListComponent'
 import StaffDetail from './StaffDetailComponent'
 import { STAFFS } from '../shared/StaffList'
+import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 
 
@@ -25,10 +26,8 @@ class Main extends Component {
     render() {
         return (
             <div className='App'>
+                <Header />
                 <Navbar dark color='primary'>
-                    <div className='container'>
-                        <NavbarBrand href='/'>Ứng dụng quản lý nhân viên</NavbarBrand>
-                    </div>
                 </Navbar>
                 <Staffslist staffs={this.state.staffs}
                     onClick={(staffId) => this.onStaffSelect(staffId)} />
