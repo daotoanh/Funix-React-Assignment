@@ -1,12 +1,16 @@
 import React from 'react'
 import { Card, CardImg, CardTitle } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 
 function RenderStaffList({ staff, onClick }) {
     return (
-        <Card onClick={() => onClick(staff.id)}>
+        <Card>
+            <Link to={`/staffs/${staff.id}`} >
             <CardImg src={staff.image} alt={staff.name} />
-            <CardTitle className='center'>{staff.name}</CardTitle>           
+            </Link>
+            <CardTitle className='center'>{staff.name}</CardTitle>
+            
         </Card>
     )
 }

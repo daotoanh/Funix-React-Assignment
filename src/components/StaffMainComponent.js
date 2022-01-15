@@ -5,6 +5,7 @@ import StaffDetail from './StaffDetailComponent'
 import { STAFFS } from '../shared/StaffList'
 import Header from './HeaderComponent'
 import Footer from './FooterComponent'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 
 class Main extends Component {
@@ -14,25 +15,27 @@ class Main extends Component {
 
         this.state = {
             staffs: STAFFS,
-            selectedStaff: null
+
         }
     }
 
 
-    onStaffSelect(staffId) {
-        this.setState({ selectedStaffs: staffId });
-    }
-
     render() {
+
+        const StaffWithId = ({ match }) => {
+            return (
+                <StaffDetail staff={this.state.staffs.filter((staff) => staff.id === parseInt(match.params.staffId, 10))[0]} />
+            )
+        }
+
         return (
             <div className='App'>
                 <Header />
-                <Navbar dark color='primary'>
-                </Navbar>
-                <Staffslist staffs={this.state.staffs}
-                    onClick={(staffId) => this.onStaffSelect(staffId)} />
-                <StaffDetail
-                    staff={this.state.staffs.filter((staff) => staff.id === this.state.selectedStaff)[0]} />
+                <Switch>
+                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} />} />
+                    <Route exact path="/staffs/:staffId" component={StaffWithId} />
+                    <Redirect to="/staffs" />   
+                </Switch>
                 <Footer />
             </div>
         )
