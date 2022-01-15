@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Navbar, NavbarBrand } from 'reactstrap'
 import Staffslist from './StaffListComponent'
 import StaffDetail from './StaffDetailComponent'
-import { STAFFS } from '../shared/StaffList'
+import StaffDepartment from './StaffDepartment'
+import { DEPARTMENTS, STAFFS } from '../shared/StaffList'
 import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -15,7 +15,7 @@ class Main extends Component {
 
         this.state = {
             staffs: STAFFS,
-
+            departments: DEPARTMENTS
         }
     }
 
@@ -34,6 +34,7 @@ class Main extends Component {
                 <Switch>
                     <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} />} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
+                    <Route exact path="/department" component={() => <StaffDepartment departments={this.state.departments} />} />
                     <Redirect to="/staffs" />   
                 </Switch>
                 <Footer />
