@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 
 function RenderStaffSalary({ staff }) {
     if (staff != null) {
-
+        const basicSalary = 300000
+        const overTimeSalary = 200000
         
         return (
             <Card className='col-md-12'>
@@ -16,7 +17,7 @@ function RenderStaffSalary({ staff }) {
                             <CardText>Mã nhân viên: {staff.id}</CardText>
                             <CardText>Hệ số lương: {staff.salaryScale}</CardText>
                             <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
-                            <CardText>Lương:</CardText>
+                            <CardText>Lương: {(basicSalary*staff.salaryScale) + (overTimeSalary * staff.overTime)}</CardText>
                         </CardBody>
                     </div>
                 </div>
@@ -49,7 +50,6 @@ const StaffSalary = (props) => {
             </Breadcrumb>
               {staffSalary}
               </div>
-
         </div>
     )
  
