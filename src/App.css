@@ -1,14 +1,29 @@
-.footer{
+
+.footer {
   margin: 0px auto;
   padding-top: 50px;
   background-color: rgb(127, 127, 179);
 }
 
-.center{
+.center {
   text-align: center;
 }
 
-.departmentname{
+.departmentname {
   font-size: 30px;
   font-weight: bold;
+  text-align: center;
+}
+
+
+.departmentinfo {
+  background-image: linear-gradient(to right, red, orange, yellow, green, violet);
+  text-align: center;
+}
+
+.salarystaff {
+  border: 1px solid;
+  color: blue;
+  text-align: center;
+  background-image: linear-gradient(to right, red, orange, yellow, green, violet);
 }

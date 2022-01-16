@@ -8,39 +8,32 @@ class Header extends Component {
             <div>
                 <Navbar dark color="primary" dark expand="md">
                     <div className="container">
-
                         <Nav navbar className="mr-auto">
                             <NavItem>
-                            <img src="/assets/images/logo.png" height="30" width="50" alt="logo" />
-                             </NavItem>
-                             <NavItem>
+                                <img src="/assets/images/logo.png" height="30" width="50" alt="logo" />
+                            </NavItem>
+                            <NavItem>
                                 <NavLink className="nav-link" to="/staffs">
                                     <span className="fa fa-users fa-lg"> Nhân viên</span>
                                 </NavLink>
-                             </NavItem>
-                             <NavItem>
+                            </NavItem>
+                            <NavItem>
                                 <NavLink className="nav-link" to="/department">
                                     <span className="fa fa-address-book fa-lg"> Phòng Ban</span>
                                 </NavLink>
-                             </NavItem>
-                             <NavItem>
+                            </NavItem>
+                            <NavItem>
                                 <NavLink className="nav-link" to="/salary">
                                     <span className="fa fa-money fa-lg"> Bảng Lương</span>
                                 </NavLink>
-                             </NavItem>
+                            </NavItem>
                         </Nav>
-
                     </div>
-                    
                 </Navbar>
-                
             </div>
         )
     }
 }
-
-
-
 
 
 export default Header

@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom'
 
 function RenderStaffDepartment({ department, onClick }) {
     return (
-        <Card>
+        <Card className='departmentinfo'>
             <CardTitle className='departmentname'>{department.name}</CardTitle>
-            <CardText>Số lượng nhân viên: {department.numberOfStaff}</CardText>
+            <CardText className='departmentinfo'>Số lượng nhân viên: {department.numberOfStaff}</CardText>
         </Card>
     )
 }
@@ -17,7 +17,7 @@ function RenderStaffDepartment({ department, onClick }) {
 const StaffDepartment = (props) => {
     const staffDepartment = props.departments.map((department) => {
         return (
-            <div key={department.id} className="col-lg-4 col-md-6  col-12">
+            <div key={department.id} className="col-lg-4 col-md-6  col-12 department">
                 <RenderStaffDepartment department={department} />
             </div>
         )

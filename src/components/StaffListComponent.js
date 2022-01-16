@@ -15,6 +15,9 @@ function RenderStaffList({ staff, onClick }) {
     )
 }
 
+
+
+
 const StaffList = (props) => {
     const staffList = props.staffs.map((staff) => {
         return (

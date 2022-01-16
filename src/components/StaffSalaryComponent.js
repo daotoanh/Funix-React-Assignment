@@ -11,13 +11,13 @@ function RenderStaffSalary({ staff }) {
         return (
             <Card className='col-md-12'>
                 <div className='row'>
-                    <div className='col-s-12 col-md-8 col-lg-9'>
+                    <div className='col-s-12 col-md-8 col-lg-9 salarystaff'>
                         <CardBody>
                             <h4>{staff.name}</h4>
                             <CardText>Mã nhân viên: {staff.id}</CardText>
                             <CardText>Hệ số lương: {staff.salaryScale}</CardText>
                             <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
-                            <CardText>Lương: {(basicSalary*staff.salaryScale) + (overTimeSalary * staff.overTime)}</CardText>
+                            <CardText>Lương: {(basicSalary*staff.salaryScale) + (overTimeSalary * staff.overTime)} <i class="fa fa-usd" aria-hidden="true"></i></CardText>
                         </CardBody>
                     </div>
                 </div>
