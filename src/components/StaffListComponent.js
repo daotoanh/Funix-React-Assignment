@@ -4,6 +4,7 @@ import {
 } from 'reactstrap'
 
 import { Link } from 'react-router-dom'
+import NewStaff from './NewStaffComponent'
 
 
 function RenderStaffList({ staff, onClick }) {
@@ -47,6 +48,7 @@ const StaffList = (props) => {
         <div className="container">
             <div className="row">
                 <div className='col-3'>
+                    <NewStaff />
                 </div>
                 <div className='col-8'>
                     <Form onSubmit={e => handleSubmit(e)}>
