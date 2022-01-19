@@ -32,6 +32,10 @@ const StaffList = (props) => {
         e.preventDefault()
     }
 
+    const handleaddnewStaff = (staff) => {
+        props.handleaddnewStaff(staff)
+    }
+
     
 
     const staffList = staffs.map((staff) => {
@@ -48,7 +52,7 @@ const StaffList = (props) => {
         <div className="container">
             <div className="row">
                 <div className='col-3'>
-                    <NewStaff />
+                    <NewStaff handleaddnewStaff={handleaddnewStaff}/>
                 </div>
                 <div className='col-8'>
                     <Form onSubmit={e => handleSubmit(e)}>

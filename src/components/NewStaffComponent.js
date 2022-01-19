@@ -35,6 +35,8 @@ class NewStaff extends Component {
         })
     }
 
+
+
     handleInputChange(event) {
 
         const target = event.target;
@@ -48,6 +50,7 @@ class NewStaff extends Component {
 
     onFormSubmit(event) {
         event.preventDefault()
+        this.props.handleaddnewStaff(this.state)
         this.toggleModal()
     }
 
@@ -75,6 +78,9 @@ class NewStaff extends Component {
                             <FormGroup>
                                 <Label htmlFor="doB">Ngày sinh</Label>
                                 <Input type='date'
+                                    dateFormat='dd/MM/yyyy'
+                                    placeholderText="dd/mm/yyyy"
+                                    name="doB"
                                     onChange={this.handleInputChange}
                                     value={this.state.doB} />
                             </FormGroup>

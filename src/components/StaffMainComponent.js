@@ -18,9 +18,14 @@ class Main extends Component {
             staffs: STAFFS,
             departments: DEPARTMENTS
         }
+        this.handleaddnewStaff = this.handleaddnewStaff.bind(this)
     }
 
-    
+    handleaddnewStaff = (staff) => {
+        this.setState({
+            staffs: [...this.state.staffs, staff]
+        })
+    }
 
 
     render() {
@@ -35,11 +40,11 @@ class Main extends Component {
             <div className='App'>
                 <Header />
                 <Switch>
-                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} />} />
+                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} handleaddnewStaff={this.handleaddnewStaff} />} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
                     <Route exact path="/department" component={() => <StaffDepartment departments={this.state.departments} />} />
                     <Route exact path="/salary" component={() => <StaffSalary staffs={this.state.staffs} />} />
-                    <Redirect to="/staffs" />   
+                    <Redirect to="/staffs" />
                 </Switch>
                 <Footer />
             </div>
