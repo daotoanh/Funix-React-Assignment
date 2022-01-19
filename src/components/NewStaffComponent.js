@@ -16,18 +16,24 @@ class NewStaff extends Component {
             doB: '',
             startDate: '',
             salaryScale: '',
-            department:  { name: 'Sale' },
+            department: { name: 'Sale' },
             annualLeave: '',
             overTime: '',
             salary: '',
             image: '/assets/images/alberto.png',
-            isModalOpen: false
+            isModalOpen: false,
+            touched: {
+                name: false,
+                doB: false,
+                startDate: false
+            }
         }
 
         this.toggleModal = this.toggleModal.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
         this.onFormSubmit = this.onFormSubmit.bind(this)
+        this.handleBlur = this.handleBlur.bind(this)
     }
 
     toggleModal() {
@@ -36,9 +42,15 @@ class NewStaff extends Component {
         })
     }
 
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true }
+        })
+    }
+
     handleDepartmentChange(event) {
         const value = event.target.value
-          this.setState({
+        this.setState({
             department: { ...this.state.department, name: value }
         })
     }
@@ -62,8 +74,30 @@ class NewStaff extends Component {
         this.toggleModal()
     }
 
+    validate(name, doB, startDate) {
+        const errors = {
+            name: '',
+            doB: '',
+            startDate: ''
+        }
+        if (this.state.touched.name && name.length < 1)
+            errors.name = 'Vui lòng nhập đủ thông tin';
+
+        if (this.state.touched.doB && doB.length < 1)
+            errors.doB = 'Vui lòng nhập đủ thông tin';
+
+        if (this.state.touched.startDate && startDate.length < 1)
+            errors.startDate = 'Vui lòng nhập đủ thông tin';
+
+        return errors;
+
+    }
+
 
     render() {
+
+        const errors = this.validate(this.state.name, this.state.doB, this.state.startDate)
+
         return (
             <div>
                 <InputGroup>
@@ -80,8 +114,12 @@ class NewStaff extends Component {
                                 <Label htmlFor="name">Tên</Label>
                                 <Input type="text" id="name" name="name"
                                     value={this.state.name}
-                                    onChange={this.handleInputChange} />
-
+                                    onChange={this.handleInputChange}
+                                    invalid={errors.name !== ''}
+                                    onBlur={this.handleBlur('name')} />
+                                <FormFeedback>
+                                    {errors.name}
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="doB">Ngày sinh</Label>
@@ -90,7 +128,12 @@ class NewStaff extends Component {
                                     placeholderText="dd/mm/yyyy"
                                     name="doB"
                                     onChange={this.handleInputChange}
-                                    value={this.state.doB} />
+                                    value={this.state.doB}
+                                    invalid={errors.doB !== ''}
+                                    onBlur={this.handleBlur('doB')} />
+                                <FormFeedback>
+                                    {errors.doB}
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="startdate">Ngày vào công ty</Label>
@@ -100,8 +143,12 @@ class NewStaff extends Component {
                                     placeholderText="dd/mm/yyyy"
                                     name="startDate"
                                     onChange={this.handleInputChange}
-                                    value={this.state.startDate} />
-
+                                    value={this.state.startDate}
+                                    invalid={errors.startDate !== ''}
+                                    onBlur={this.handleBlur('startDate')} />
+                                <FormFeedback>
+                                    {errors.startDate}
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="department">Phòng ban</Label>
@@ -114,6 +161,7 @@ class NewStaff extends Component {
                                     <option>IT</option>
                                     <option>Finance</option>
                                 </Input>
+                                
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="salaryscale">Hệ số lương</Label>
