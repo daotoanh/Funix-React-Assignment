@@ -52,7 +52,7 @@ const StaffList = (props) => {
         <div className="container">
             <div className="row">
                 <div className='col-3'>
-                    <NewStaff handleaddnewStaff={handleaddnewStaff}/>
+                    <NewStaff handleaddnewStaff={handleaddnewStaff} newId={props.newId}/>
                 </div>
                 <div className='col-8'>
                     <Form onSubmit={e => handleSubmit(e)}>

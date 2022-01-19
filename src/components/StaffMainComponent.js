@@ -36,11 +36,13 @@ class Main extends Component {
             )
         }
 
+        const newId = this.state.staffs.length + 1
+
         return (
             <div className='App'>
                 <Header />
                 <Switch>
-                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} handleaddnewStaff={this.handleaddnewStaff} />} />
+                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.state.staffs} newId={newId} handleaddnewStaff={this.handleaddnewStaff} />} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
                     <Route exact path="/department" component={() => <StaffDepartment departments={this.state.departments} />} />
                     <Route exact path="/salary" component={() => <StaffSalary staffs={this.state.staffs} />} />

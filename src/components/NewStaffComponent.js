@@ -11,12 +11,12 @@ class NewStaff extends Component {
         super(props)
 
         this.state = {
-            id: '',
+            id: props.newId,
             name: '',
             doB: '',
             startDate: '',
             salaryScale: '',
-            department: '',
+            department:  { name: 'Sale' },
             annualLeave: '',
             overTime: '',
             salary: '',
@@ -26,12 +26,20 @@ class NewStaff extends Component {
 
         this.toggleModal = this.toggleModal.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
         this.onFormSubmit = this.onFormSubmit.bind(this)
     }
 
     toggleModal() {
         this.setState({
             isModalOpen: !this.state.isModalOpen
+        })
+    }
+
+    handleDepartmentChange(event) {
+        const value = event.target.value
+          this.setState({
+            department: { ...this.state.department, name: value }
         })
     }
 
