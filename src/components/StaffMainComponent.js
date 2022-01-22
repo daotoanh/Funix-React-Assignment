@@ -3,23 +3,26 @@ import Staffslist from './StaffListComponent'
 import StaffDetail from './StaffDetailComponent'
 import StaffDepartment from './StaffDepartment'
 import StaffSalary from './StaffSalaryComponent'
-import { DEPARTMENTS, STAFFS } from '../shared/StaffList'
 import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { DEPARTMENTS, STAFFS } from '../shared/StaffList'
+
+
+
 
 
 class Main extends Component {
 
     constructor(props) {
         super(props)
-
         this.state = {
             staffs: STAFFS,
             departments: DEPARTMENTS
         }
         this.handleaddnewStaff = this.handleaddnewStaff.bind(this)
     }
+
 
     handleaddnewStaff = (staff) => {
         this.setState({
@@ -55,4 +58,4 @@ class Main extends Component {
 }
 
 
-export default Main;
+export default Main

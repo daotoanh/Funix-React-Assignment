@@ -51,10 +51,10 @@ const StaffList = (props) => {
     return (
         <div className="container">
             <div className="row">
-                <div className='col-3'>
+                <div className='col-6'>
                     <NewStaff handleaddnewStaff={handleaddnewStaff} newId={props.newId}/>
                 </div>
-                <div className='col-8'>
+                <div className='col-6'>
                     <Form onSubmit={e => handleSubmit(e)}>
                         <div className='row headersearch'>
                             <div className='col-6'>

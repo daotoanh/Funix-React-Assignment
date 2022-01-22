@@ -82,6 +82,9 @@ class NewStaff extends Component {
         }
         if (this.state.touched.name && name.length < 1)
             errors.name = 'Vui lòng nhập đủ thông tin';
+        
+        if (this.state.touched.name && name.length > 30 )
+            errors.name = 'Yêu cầu nhập dưới 30 ký tự';
 
         if (this.state.touched.doB && doB.length < 1)
             errors.doB = 'Vui lòng nhập đủ thông tin';
@@ -101,7 +104,7 @@ class NewStaff extends Component {
         return (
             <div>
                 <InputGroup>
-                    <div className='col-5'>
+                    <div className='col-3'>
                         <InputGroupText>NHÂN VIÊN</InputGroupText>
                     </div>
                     <Button onClick={this.toggleModal} color="primary">+</Button>
@@ -165,7 +168,8 @@ class NewStaff extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="salaryscale">Hệ số lương</Label>
-                                <Input type="text" id="salaryscale" name="salaryScale"
+                                <Input type="number" id="salaryscale" name="salaryScale"
+                                    placeholder='0.5 -> 3'
                                     value={this.state.salaryScale}
                                     onChange={this.handleInputChange} />
                             </FormGroup>
