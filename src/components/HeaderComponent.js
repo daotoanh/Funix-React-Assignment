@@ -6,7 +6,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <Navbar dark color="primary" dark expand="md">
+                <Navbar dark color="primary" expand="md">
                     <div className="container">
                         <Nav navbar className="mr-auto">
                             <NavItem>

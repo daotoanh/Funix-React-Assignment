@@ -2,24 +2,25 @@ import React, { useState } from 'react'
 import {
     Card, CardImg, CardTitle, Form, Button, Input,
 } from 'reactstrap'
-
+import { Loading } from './LoadingComponent'
 import { Link } from 'react-router-dom'
 import NewStaff from './NewStaffComponent'
 
 
-function RenderStaffList({ staff, onClick }) {
+function RenderStaffList({staff}) {
+    
     return (
         <Card>
             <Link to={`/staffs/${staff.id}`} >
                 <CardImg src={staff.image} alt={staff.name} />
             </Link>
-            <CardTitle className='center'>{staff.name}</CardTitle>
+            <CardTitle className='center'>{ staff.name }</CardTitle>
         </Card>
     )
 }
 
 
-
+// sreach staff
 const StaffList = (props) => {
     const [staffs, setStaffs] = useState(props.staffs)
     const [searchStaff, setSearchStaff] = useState(" ")
@@ -32,13 +33,8 @@ const StaffList = (props) => {
         e.preventDefault()
     }
 
-    const handleaddnewStaff = (staff) => {
-        props.handleaddnewStaff(staff)
-    }
-
     
-
-    const staffList = staffs.map((staff) => {
+    const staffList = props.staffs.staffs.map((staff) => {
         return (
             <div key={staff.id} className="col-lg-2 col-md-4 col-12">
                 <RenderStaffList staff={staff} />
@@ -46,13 +42,33 @@ const StaffList = (props) => {
         )
     })
 
+    if (props.staffs.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        )
+    }
 
+    else if (props.staffs.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.staffs.errMess}</h4>
+                </div>
+            </div>
+        )
+    }
+  
+    else
 
     return (
         <div className="container">
             <div className="row">
                 <div className='col-6'>
-                    <NewStaff handleaddnewStaff={handleaddnewStaff} newId={props.newId}/>
+                    <NewStaff />
                 </div>
                 <div className='col-6'>
                     <Form onSubmit={e => handleSubmit(e)}>

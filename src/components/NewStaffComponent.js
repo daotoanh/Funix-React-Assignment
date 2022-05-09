@@ -11,7 +11,7 @@ class NewStaff extends Component {
         super(props)
 
         this.state = {
-            id: props.newId,
+            id: props.id,
             name: '',
             doB: '',
             startDate: '',
@@ -70,7 +70,7 @@ class NewStaff extends Component {
 
     onFormSubmit(event) {
         event.preventDefault()
-        this.props.handleaddnewStaff(this.state)
+        this.props.addStaff(this.state.id, this.state.name, this.state.doB, this.state.startDate, this.state.salaryScale, this.state.department, this.state.annualLeave, this.state.overTime)
         this.toggleModal()
     }
 
@@ -104,7 +104,7 @@ class NewStaff extends Component {
         return (
             <div>
                 <InputGroup>
-                    <div className='col-3'>
+                    <div className='col-5'>
                         <InputGroupText>NHÂN VIÊN</InputGroupText>
                     </div>
                     <Button onClick={this.toggleModal} color="primary">+</Button>
@@ -128,7 +128,7 @@ class NewStaff extends Component {
                                 <Label htmlFor="doB">Ngày sinh</Label>
                                 <Input type='date'
                                     dateFormat='dd/MM/yyyy'
-                                    placeholderText="dd/mm/yyyy"
+                                    placeholder="dd/mm/yyyy"
                                     name="doB"
                                     onChange={this.handleInputChange}
                                     value={this.state.doB}
@@ -143,7 +143,7 @@ class NewStaff extends Component {
                                 <Input
                                     type="date"
                                     dateFormat='dd/MM/yyyy'
-                                    placeholderText="dd/mm/yyyy"
+                                    placeholder="dd/mm/yyyy"
                                     name="startDate"
                                     onChange={this.handleInputChange}
                                     value={this.state.startDate}
