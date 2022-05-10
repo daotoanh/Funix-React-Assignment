@@ -51,11 +51,15 @@ class Main extends Component {
             )
         }
 
-        // const DepartmentWithId = ({match}) => {
-        //     return(
-        //         <DepartmentDetail departments={this.props.departments.departments.filter((department) => department.id === parseInt(match.params.departmentId, 10))[0]} staffs={this.props.staffs}/>
-        //     )
-        // }
+        const DepartmentWithId = ({match}) => {
+            return(
+               <DepartmentDetail
+               departId = {match.params.idDept}
+               staffs={this.props.staffs}
+               departments={this.props.departments}
+               />
+            )
+        }
 
 
         return (
@@ -65,7 +69,7 @@ class Main extends Component {
                     <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} />} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
                     <Route exact path="/department" component={() => <StaffDepartment departments={this.props.departments} />} />
-                    <Route exact path="/department/:idDept" element={<DepartmentDetail departments={this.props.departments} staffs={this.props.staffs}/> }/>
+                    <Route exact path="/department/:idDept" component={DepartmentWithId}/>
                     <Route exact path="/salary" component={() => <StaffSalary staffssalary={this.props.staffssalary} />} />
                     <Redirect to="/staffs" />
                 </Switch>

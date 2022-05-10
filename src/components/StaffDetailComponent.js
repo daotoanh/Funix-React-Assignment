@@ -34,6 +34,7 @@ function RenderStaff({ staff }) {
     }
 }
 const StaffDetail = (props) => {
+    console.log(props)
 
     if (props.staff != null || props.department != null) {
         return (

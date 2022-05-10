@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom'
 
 
 function RenderStaffDepartment({ department, onClick }) {
-    return (
-        
+    return (       
             <Card className='departmentinfo'>
-                <Link to='/department/${department.id}'>
+                <Link to={`/department/${department.id}`}>
                 <CardTitle className='departmentname'>{department.name}</CardTitle>
                 <CardText className='departmentinfo'>Số lượng nhân viên: {department.numberOfStaff}</CardText>
                 </Link>
-            </Card>   
-           
+            </Card>           
     )
 }
 

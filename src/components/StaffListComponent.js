@@ -8,7 +8,6 @@ import NewStaff from './NewStaffComponent'
 
 
 function RenderStaffList({staff}) {
-    
     return (
         <Card>
             <Link to={`/staffs/${staff.id}`} >
