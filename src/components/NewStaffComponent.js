@@ -9,9 +9,8 @@ import {
 class NewStaff extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-            id: props.id,
+            id: '',
             name: '',
             doB: '',
             startDate: '',
@@ -55,8 +54,6 @@ class NewStaff extends Component {
         })
     }
 
-
-
     handleInputChange(event) {
 
         const target = event.target;
@@ -70,7 +67,7 @@ class NewStaff extends Component {
 
     onFormSubmit(event) {
         event.preventDefault()
-        this.props.addStaff(this.state.id, this.state.name, this.state.doB, this.state.startDate, this.state.salaryScale, this.state.department, this.state.annualLeave, this.state.overTime)
+        this.props.postStaff(this.state.id, this.state.name, this.state.doB, this.state.startDate, this.state.salaryScale, this.state.department, this.state.annualLeave, this.state.overTime)
         this.toggleModal()
     }
 

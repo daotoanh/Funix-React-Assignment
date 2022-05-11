@@ -3,7 +3,7 @@ import { Staffs } from './staffs';
 import { Departments } from './departments';
 import { Staffssalary } from './staffssalary'
 import thunk from 'redux-thunk'
-import logger from 'redux-logger'
+import logger from 'redux-logger' //show action f12
 
 export const ConfigureStore = () => {
     const store = createStore(

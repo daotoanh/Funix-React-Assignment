@@ -8,7 +8,7 @@ import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchStaffs, fetchDepartments, fetchStaffssalary } from '../redux/ActionCreators'
+import { postStaff , fetchStaffs, fetchDepartments, fetchStaffssalary } from '../redux/ActionCreators'
 
 
 
@@ -22,6 +22,7 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => ({
+    postStaff: (newStaff) => dispatch(postStaff(newStaff)),
     fetchStaffs: () => { dispatch(fetchStaffs())},
     fetchDepartments: () => { dispatch(fetchDepartments())},
     fetchStaffssalary: () => { dispatch(fetchStaffssalary())}
@@ -66,7 +67,7 @@ class Main extends Component {
             <div className='App'>
                 <Header />
                 <Switch>
-                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} />} />
+                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} postStaff={this.props.postStaff}/>} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
                     <Route exact path="/department" component={() => <StaffDepartment departments={this.props.departments} />} />
                     <Route exact path="/department/:idDept" component={DepartmentWithId}/>
