@@ -16,13 +16,13 @@ export const Staffs = (state = {
             return { ...state, isLoading: false, errMess: action.payload };
 
         case ActionTypes.ADD_STAFF:
-            return { ...state, Staffs: state.staffs.concat(action.payload)}
+            return { ...state, staffs: state.staffs.concat(action.payload) }
 
         case ActionTypes.DELETE_STAFFS:
-            return { ...state, Staffs: state.staffs.filter(staffs => staffs.id !== action.payload)}
+            return { ...state, staffs: state.staffs.filter(staffs => staffs.id !== action.payload) }
 
         case ActionTypes.UPDATE_STAFFS:
-            return { ...state, Staffs: state.staffs.map(staffs => staffs.id === action.payload.id ? action.payload : staffs)}
+            return { ...state, staffs: state.staffs.map(staffs => staffs.id === action.payload.id ? action.payload : staffs) }
 
         default:
             return state;

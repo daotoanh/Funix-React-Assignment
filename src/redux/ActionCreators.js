@@ -27,8 +27,20 @@ export const addStaffs = (staffs) => ({
 
 //add newstaff use "POST"
 
-export const postStaff = (newStaff) => (dispatch) => {
-    fetch(baseUrl + "staffs", {
+export const postStaff = (name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => (dispatch) => {
+
+    const newStaff = {
+        name: name,
+        salaryScale: salaryScale,
+        doB: doB,
+        startDate: startDate,
+        department: department,
+        annualLeave: annualLeave,
+        overTime: overTime,
+        salary: salary
+    }
+
+    return fetch(baseUrl + "staffs", {
         method: "POST",
         body: JSON.stringify(newStaff),
         headers: { "Content-Type": "application/json" },

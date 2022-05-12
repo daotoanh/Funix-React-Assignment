@@ -1,38 +1,28 @@
 import React, { Component } from 'react'
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import {
-    Form, FormGroup, Button, Input,
-    Label, InputGroup, InputGroupText,
-    Modal, ModalHeader, ModalBody, FormFeedback
+    Form, Button, InputGroup, InputGroupText,
+    Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, Input
 } from 'reactstrap'
+
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => !(val) || (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+
 
 
 class NewStaff extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: '',
-            name: '',
-            doB: '',
-            startDate: '',
-            salaryScale: '',
-            department: { name: 'Sale' },
-            annualLeave: '',
-            overTime: '',
-            salary: '',
-            image: '/assets/images/alberto.png',
-            isModalOpen: false,
-            touched: {
-                name: false,
-                doB: false,
-                startDate: false
-            }
-        }
+            isNavOpen: false,
+            isModalOpen: false
+        };
 
         this.toggleModal = this.toggleModal.bind(this)
-        this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
         this.onFormSubmit = this.onFormSubmit.bind(this)
-        this.handleBlur = this.handleBlur.bind(this)
     }
 
     toggleModal() {
@@ -41,63 +31,14 @@ class NewStaff extends Component {
         })
     }
 
-    handleBlur = (field) => (evt) => {
-        this.setState({
-            touched: { ...this.state.touched, [field]: true }
-        })
-    }
-
-    handleDepartmentChange(event) {
-        const value = event.target.value
-        this.setState({
-            department: { ...this.state.department, name: value }
-        })
-    }
-
-    handleInputChange(event) {
-
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        })
-    }
-
-    onFormSubmit(event) {
-        event.preventDefault()
-        this.props.postStaff(this.state.id, this.state.name, this.state.doB, this.state.startDate, this.state.salaryScale, this.state.department, this.state.annualLeave, this.state.overTime)
+    onFormSubmit(values) {
+        this.props.postStaff(values.name, values.salaryScale, values.doB, values.startDate, values.department, values.annualLeave, values.overTime, values.salary)
         this.toggleModal()
-    }
-
-    validate(name, doB, startDate) {
-        const errors = {
-            name: '',
-            doB: '',
-            startDate: ''
-        }
-        if (this.state.touched.name && name.length < 1)
-            errors.name = 'Vui lòng nhập đủ thông tin';
-        
-        if (this.state.touched.name && name.length > 30 )
-            errors.name = 'Yêu cầu nhập dưới 30 ký tự';
-
-        if (this.state.touched.doB && doB.length < 1)
-            errors.doB = 'Vui lòng nhập đủ thông tin';
-
-        if (this.state.touched.startDate && startDate.length < 1)
-            errors.startDate = 'Vui lòng nhập đủ thông tin';
-
-        return errors;
-
+        console.log(values)
     }
 
 
     render() {
-
-        const errors = this.validate(this.state.name, this.state.doB, this.state.startDate)
-
         return (
             <div>
                 <InputGroup>
@@ -106,10 +47,11 @@ class NewStaff extends Component {
                     </div>
                     <Button onClick={this.toggleModal} color="primary">+</Button>
                 </InputGroup>
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+
+                {/* <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.onFormSubmit} >
+                      <Form onSubmit={this.onFormSubmit} >
                             <FormGroup>
                                 <Label htmlFor="name">Tên</Label>
                                 <Input type="text" id="name" name="name"
@@ -161,7 +103,7 @@ class NewStaff extends Component {
                                     <option>IT</option>
                                     <option>Finance</option>
                                 </Input>
-                                
+
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="salaryscale">Hệ số lương</Label>
@@ -185,6 +127,233 @@ class NewStaff extends Component {
                             <Button type="submit" value="submit" color="primary">Thêm</Button>
                         </Form>
                     </ModalBody>
+                </Modal> */}
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={(values) => this.onFormSubmit(values)}>
+                            <Row className="mb-3">
+                                <Label htmlFor='name' column sm="3">
+                                    Tên
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        placeholder="Tên Nhân Viên"
+                                        model='.name'// must be .name to collect data
+                                        id='name'
+                                        name='name'
+                                        className='form-control'
+                                        updateOn={'change'}//OnChange event
+                                        validators={
+                                            {
+                                                required, minLength: minLength(3), maxLength: maxLength(20)
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.name'
+                                        show='touched'
+                                        name='name'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                            minLength: '* Trường này phải lớn hơn 3 ký tự',
+                                            maxLength: '* Trường này phải nhỏ hơn 20 ký tự',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='salaryScale' column sm="3">
+                                    Hệ số Lương
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        placeholder="Hệ số Lương"
+                                        model='.salaryScale'
+                                        id='salaryScale'
+                                        name='salaryScale'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        validators={
+                                            {
+                                                required, isNumber
+                                            }
+                                        }
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.salaryScale'
+                                        show='touched'
+                                        name='salaryScale'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                            isNumber: '* Trường này phải là số'
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='doB' column sm="3">
+                                    Ngày sinh
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        placeholder="Ngày sinh"
+                                        type='date'
+                                        model='.doB'
+                                        id='doB'
+                                        name='doB'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        validators={{ required }}
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.doB'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='startDate' column sm="3">
+                                    Ngày Vào Công ty
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        placeholder="Ngày Vào Công ty"
+                                        type='date'
+                                        model='.startDate'
+                                        id='startDate'
+                                        name='startDate'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        validators={{ required }}
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.startDate'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='department' column sm="3">
+                                    Phòng Ban
+                                </Label>
+                                <Col sm="9">
+                                    <Control.select
+                                        placeholder='Phòng Ban'
+                                        updateOn={'change'}
+                                        model='.department'
+                                        id='department'
+                                        name='department'
+                                        className='form-control'
+                                        aria-label="Default select example"
+                                        validators={{ required }}
+                                    >
+                                        <option>Chọn Phòng Ban</option>
+                                        <option value="Dept01">Sale</option>
+                                        <option value="Dept02">HR</option>
+                                        <option value="Dept03">Marketing</option>
+                                        <option value="Dept04">IT</option>
+                                        <option value="Dept05">Finance</option>
+                                    </Control.select>
+                                    <Errors
+                                        className='text-danger'
+                                        model='.department'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='annualLeave' column sm="3">
+                                    Số Ngày Nghỉ Còn Lại
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        model='.annualLeave'
+                                        id='annualLeave'
+                                        name='annualLeave'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        placeholder='Số Ngày Nghỉ Còn Lại'
+                                        validators={{ required, isNumber }}
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.annualLeave'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                            isNumber: '* Trường này phải là số',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='overTime' column sm="3">
+                                    Số Ngày Đã Làm Thêm
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        model='.overTime'
+                                        id='overTime'
+                                        name='overTime'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        placeholder='Số Ngày Đã Làm Thêm'
+                                        validators={{ required, isNumber }}
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.overTime'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                            isNumber: '* Trường này phải là số',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="mb-3">
+                                <Label htmlFor='salary' column sm="3">
+                                    Lương
+                                </Label>
+                                <Col sm="9">
+                                    <Control.text
+                                        model='.salary'
+                                        id='salary'
+                                        name='salary'
+                                        className='form-control'
+                                        updateOn={'change'}
+                                        placeholder='Lương'
+                                        validators={{ required, isNumber }}
+                                    />
+                                    <Errors
+                                        className='text-danger'
+                                        model='.salary'
+                                        show='touched'
+                                        messages={{
+                                            required: '* Trường này không được trống',
+                                            isNumber: '* Trường này phải là số',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Button type="submit" value="submit" color="primary">Thêm</Button>
+                        </LocalForm>
+                    </ModalBody>
+
                 </Modal>
             </div>
         )
