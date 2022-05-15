@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import {
-    Form, Button, InputGroup, InputGroupText,
+import { Button, InputGroup, InputGroupText,
     Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, Input
 } from 'reactstrap'
 
@@ -32,7 +31,7 @@ class NewStaff extends Component {
     }
 
     onFormSubmit(values) {
-        this.props.postStaff(values.name, values.salaryScale, values.doB, values.startDate, values.department, values.annualLeave, values.overTime, values.salary)
+        this.props.postStaff(this.props.id, values.name, values.salaryScale, values.doB, values.startDate, values.department, values.annualLeave, values.overTime, values.salary)
         this.toggleModal()
         console.log(values)
     }
@@ -139,11 +138,11 @@ class NewStaff extends Component {
                                 <Col sm="9">
                                     <Control.text
                                         placeholder="Tên Nhân Viên"
-                                        model='.name'// must be .name to collect data
+                                        model='.name'//
                                         id='name'
                                         name='name'
                                         className='form-control'
-                                        updateOn={'change'}//OnChange event
+                                        updateOn={'change'}
                                         validators={
                                             {
                                                 required, minLength: minLength(3), maxLength: maxLength(20)
@@ -353,7 +352,6 @@ class NewStaff extends Component {
                             <Button type="submit" value="submit" color="primary">Thêm</Button>
                         </LocalForm>
                     </ModalBody>
-
                 </Modal>
             </div>
         )

@@ -19,9 +19,9 @@ function RenderStaffList({staff}) {
 }
 
 
-// sreach staff
+
 const StaffList = (props) => {
-    const [staffs, setStaffs] = useState(props.staffs)
+    const [staffs, setStaffs] = useState()
     const [searchStaff, setSearchStaff] = useState(" ")
 
     const handleSreachChange = e => setSearchStaff(e.target.value)
@@ -61,13 +61,13 @@ const StaffList = (props) => {
         )
     }
   
-    else
+    else {
 
     return (
         <div className="container">
             <div className="row">
                 <div className='col-6'>
-                    <NewStaff postStaff={props.postStaff}/>
+                    <NewStaff postStaff={props.postStaff} staffs={props.staffs}/>
                 </div>
                 <div className='col-6'>
                     <Form onSubmit={e => handleSubmit(e)}>
@@ -87,6 +87,7 @@ const StaffList = (props) => {
             </div>
         </div>
     )
+    }
 }
 
 export default StaffList

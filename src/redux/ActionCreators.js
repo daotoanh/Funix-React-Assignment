@@ -6,8 +6,37 @@ export const fetchStaffs = () => (dispatch) => {
     dispatch(staffsLoading(true));
 
     return fetch(baseUrl + 'staffs')
+
+
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            }
+        )
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
         .then(response => response.json())
-        .then(staffs => dispatch(addStaffs(staffs)));
+        .then(staffs => dispatch(addStaffs(staffs)))
+        .catch(error => dispatch(staffsFailed(error.message)));
 }
 
 export const staffsLoading = () => ({
@@ -27,9 +56,10 @@ export const addStaffs = (staffs) => ({
 
 //add newstaff use "POST"
 
-export const postStaff = (name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => (dispatch) => {
+export const postStaff = (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => (dispatch) => {
 
     const newStaff = {
+        id: id,
         name: name,
         salaryScale: salaryScale,
         doB: doB,
@@ -46,16 +76,30 @@ export const postStaff = (name, salaryScale, doB, startDate, department, annualL
         headers: { "Content-Type": "application/json" },
     })
         .then(
-            (response) => {return response }
+            (response) => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            }, error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            }
         )
         .then((response) => response.json())
         .then((response) => dispatch(AddStaff(response)))
+        .catch(error => {
+            alert('Your staff could not be posted\nError: ' + error.message);
+        })
 }
 
 //delete staff use "DELETE"
 
 export const deleteStaff = (id) => (dispatch) => {
-    fetch(baseUrl + "staffs" + id, {
+    fetch(baseUrl + "staffs/" + id, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" }
     })
@@ -74,12 +118,19 @@ export const deleteStaff = (id) => (dispatch) => {
             }
         )
         .then((response) => response.json())
-        .then(() => dispatch(DeleteStaff(id)), dispatch(fetchStaffs()))
+        .then(() => {
+            dispatch(DeleteStaff(id));
+            dispatch(fetchStaffs());
+          })
+        .catch(error => {
+            console.log('delete Staff', error.message);
+            alert('Your staff could not be delete\nError: ' + error.message);
+        })
 }
 
 //update staff use "PATCH"
 
-export const updateStaff = (updatedStaff) =>  (dispatch) => { 
+export const updateStaff = (updatedStaff) => (dispatch) => {
     fetch(baseUrl + "staffs", {
         method: "PATCH",
         body: JSON.stringify(updatedStaff),

@@ -8,7 +8,7 @@ import Header from './HeaderComponent'
 import Footer from './FooterComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { postStaff , fetchStaffs, fetchDepartments, fetchStaffssalary } from '../redux/ActionCreators'
+import { postStaff , fetchStaffs, fetchDepartments, fetchStaffssalary, deleteStaff, updateStaff } from '../redux/ActionCreators'
 
 
 
@@ -20,9 +20,9 @@ const mapStateToProps = state => {
     }
 }
 
-
 const mapDispatchToProps = dispatch => ({
-    postStaff: (name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => dispatch(postStaff(name, salaryScale, doB, startDate, department, annualLeave, overTime, salary)),
+    postStaff: (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => dispatch(postStaff(id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary)),
+    deleteStaff: (id) => dispatch(deleteStaff(id)),
     fetchStaffs: () => { dispatch(fetchStaffs())},
     fetchDepartments: () => { dispatch(fetchDepartments())},
     fetchStaffssalary: () => { dispatch(fetchStaffssalary())}
@@ -44,10 +44,13 @@ class Main extends Component {
 
     render() {
         const StaffWithId = ({ match }) => {
+            console.log(match)
             return (
                 <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId, 10))[0]}
                     isLoading={this.props.staffs.isLoading}
-                    errMess={this.props.staffs.errMess} 
+                    errMess={this.props.staffs.errMess}
+                    deleteStaff={this.props.deleteStaff}
+                    staffId={match.params.staffId}
                     />
             )
         }
