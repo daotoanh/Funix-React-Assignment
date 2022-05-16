@@ -158,7 +158,11 @@ export const updateStaff = (updatedStaff) => (dispatch) => {
         .then((response) => {
             dispatch(UpdateStaff(response));
             dispatch(fetchStaffs());
-        });
+        })
+        .catch(error => {
+            console.log('Update Staff', error.message);
+            alert('Your staff could not be update\nError: ' + error.message);
+        })
 }
 
 //action add staff

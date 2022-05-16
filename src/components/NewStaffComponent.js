@@ -33,7 +33,6 @@ class NewStaff extends Component {
     onFormSubmit(values) {
         this.props.postStaff(this.props.id, values.name, values.salaryScale, values.doB, values.startDate, values.department, values.annualLeave, values.overTime, values.salary)
         this.toggleModal()
-        console.log(values)
     }
 
 

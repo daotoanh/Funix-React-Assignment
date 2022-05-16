@@ -1,9 +1,8 @@
 import React from 'react'
-import { Card, CardText, Breadcrumb, BreadcrumbItem, CardImg, CardBody, Button, Row, Col, Modal } from 'reactstrap'
+import { Card, CardText, Breadcrumb, BreadcrumbItem, CardImg, CardBody, Button} from 'reactstrap'
 import dateFormat from 'dateformat'
 import { Link } from 'react-router-dom'
-import { useState } from "react";
-import { Control, LocalForm, Errors } from "react-redux-form";
+import UpdateStaff from './UpdateStaff'
 
 
 function RenderStaff({ staff }) {
@@ -36,12 +35,13 @@ function RenderStaff({ staff }) {
     }
 }
 const StaffDetail = (props) => {
-    console.log(props)
+
+
     const onDeleteStaff = () => {
         props.deleteStaff(props.staffId)
     }
 
-    
+
 
     if (props.staff != null || props.department != null) {
         return (
@@ -53,13 +53,16 @@ const StaffDetail = (props) => {
                     </Breadcrumb>
                     <RenderStaff staff={props.staff} />
                 </div>
-                <Button
-                    variant="danger"
-                    className='btndelete'
-                    onClick={onDeleteStaff}
-                >
-                    Xóa
-                </Button>
+                <div>
+                    <Button
+                        variant="danger"
+                        className='btndelete'
+                        onClick={onDeleteStaff}
+                    >
+                        Xóa
+                    </Button>
+                    <UpdateStaff staff={props.staff} updateStaff={props.updateStaff}/>
+                </div>
             </div>
         )
     } else {
