@@ -24,9 +24,9 @@ const mapDispatchToProps = dispatch => ({
     postStaff: (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => dispatch(postStaff(id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary)),
     deleteStaff: (id) => dispatch(deleteStaff(id)),
     updateStaff: (updatedStaff) => dispatch(updateStaff(updatedStaff)),
-    fetchStaffs: () => { dispatch(fetchStaffs())},
-    fetchDepartments: () => { dispatch(fetchDepartments())},
-    fetchStaffssalary: () => { dispatch(fetchStaffssalary())}
+    fetchStaffs: () => { dispatch(fetchStaffs()) },
+    fetchDepartments: () => { dispatch(fetchDepartments()) },
+    fetchStaffssalary: () => { dispatch(fetchStaffssalary()) }
 })
 
 class Main extends Component {
@@ -47,22 +47,23 @@ class Main extends Component {
         const StaffWithId = ({ match }) => {
             return (
                 <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId, 10))[0]}
+                    departments={this.props.departments}
                     isLoading={this.props.staffs.isLoading}
                     errMess={this.props.staffs.errMess}
                     deleteStaff={this.props.deleteStaff}
                     staffId={match.params.staffId}
                     updateStaff={this.props.updateStaff}
-                    />
+                />
             )
         }
 
-        const DepartmentWithId = ({match}) => {
-            return(
-               <DepartmentDetail
-               departId = {match.params.idDept}
-               staffs={this.props.staffs}
-               departments={this.props.departments}
-               />
+        const DepartmentWithId = ({ match }) => {
+            return (
+                <DepartmentDetail
+                    departId={match.params.idDept}
+                    staffs={this.props.staffs}
+                    departments={this.props.departments}
+                />
             )
         }
 
@@ -71,10 +72,10 @@ class Main extends Component {
             <div className='App'>
                 <Header />
                 <Switch>
-                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} postStaff={this.props.postStaff}/>} />
+                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} postStaff={this.props.postStaff} />} />
                     <Route exact path="/staffs/:staffId" component={StaffWithId} />
                     <Route exact path="/department" component={() => <StaffDepartment departments={this.props.departments} />} />
-                    <Route exact path="/department/:idDept" component={DepartmentWithId}/>
+                    <Route exact path="/department/:idDept" component={DepartmentWithId} />
                     <Route exact path="/salary" component={() => <StaffSalary staffssalary={this.props.staffssalary} />} />
                     <Redirect to="/staffs" />
                 </Switch>

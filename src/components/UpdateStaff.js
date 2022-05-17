@@ -19,8 +19,6 @@ class UpdateStaff extends Component {
             isModalOpen: false
         };
         
-        {console.log("oikieconde", props)}
-
 
         this.toggleModal = this.toggleModal.bind(this)
         this.onFormSubmit = this.onFormSubmit.bind(this)
