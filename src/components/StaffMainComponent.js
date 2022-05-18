@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    postStaff: (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => dispatch(postStaff(id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary)),
+    postStaff: (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary, image) => dispatch(postStaff(id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary, image)),
     deleteStaff: (id) => dispatch(deleteStaff(id)),
     updateStaff: (updatedStaff) => dispatch(updateStaff(updatedStaff)),
     fetchStaffs: () => { dispatch(fetchStaffs()) },
@@ -48,6 +48,7 @@ class Main extends Component {
             return (
                 <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId, 10))[0]}
                     departments={this.props.departments}
+                    staffs={this.props.staffs}
                     isLoading={this.props.staffs.isLoading}
                     errMess={this.props.staffs.errMess}
                     deleteStaff={this.props.deleteStaff}

@@ -19,6 +19,7 @@ class NewStaff extends Component {
             isNavOpen: false,
             isModalOpen: false
         };
+        console.log('okie', props)
 
         this.toggleModal = this.toggleModal.bind(this)
         this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -30,7 +31,7 @@ class NewStaff extends Component {
         })
     }
 
-    onFormSubmit(values) {
+    onFormSubmit(values) {   
         this.props.postStaff(this.props.id, values.name, values.salaryScale, values.doB, values.startDate, values.department, values.annualLeave, values.overTime, values.salary)
         this.toggleModal()
     }

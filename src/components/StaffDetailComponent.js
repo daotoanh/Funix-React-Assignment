@@ -5,12 +5,20 @@ import { Link } from 'react-router-dom'
 import UpdateStaff from './UpdateStaff'
 
 
-function RenderStaff({staff}) {
+function RenderStaff(props) {
 
-    if (staff != null) {
+    if (props.staffs.staffs !== null && props.departments.departments !==null) {
+        const Staff = props.staffs.staffs.filter((staff) => {
+            return(
+                staff.id === Number(props.staffId)
+            )
+        }).map((staff, index) => {
+            const Department = props.departments.departments.find((department) => department.id === staff.departmentId)
+            console.log(Department)
 
+  
             return (
-                <Card className='col-md-12'>
+                <Card className='col-md-12' key={index}>
                     <div className='row'>
                         <div className='col-s-12 col-md-4 col-lg-3'>
                             <CardImg src={staff.image} alt={staff.name} style={{ width: "100%" }} />
@@ -20,7 +28,7 @@ function RenderStaff({staff}) {
                                 <h4>Họ và tên: {staff.name}</h4>
                                 <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
                                 <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
-                                <CardText>Phòng ban: </CardText>
+                                <CardText>Phòng ban: {Department.name}</CardText>
                                 <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                                 <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                             </CardBody>
@@ -28,6 +36,12 @@ function RenderStaff({staff}) {
                     </div>
                 </Card>
             )
+        })
+        return (
+            <div className="container mt-1">
+                <div className="row">{Staff}</div>
+            </div>
+        )
     }
     else {
         return (
@@ -36,8 +50,6 @@ function RenderStaff({staff}) {
     }
 }
 const StaffDetail = (props) => {
-
-    console.log('okie', props)
 
 
     const onDeleteStaff = () => {
@@ -54,7 +66,7 @@ const StaffDetail = (props) => {
                         <BreadcrumbItem><Link to='/Staffs'>Nhân Viên</Link></BreadcrumbItem>
                         <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
                     </Breadcrumb>
-                    <RenderStaff staff={props.staff} departments={props.departments} staffId={props.staffId} />
+                    <RenderStaff departments={props.departments} staffId={props.staffId} staffs={props.staffs} staff={props.staff}/>
                 </div>
                 <div>
                     <Button

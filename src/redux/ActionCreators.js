@@ -22,18 +22,6 @@ export const fetchStaffs = () => (dispatch) => {
                 throw errmess;
             }
         )
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        }, error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
         .then(response => response.json())
         .then(staffs => dispatch(addStaffs(staffs)))
         .catch(error => dispatch(staffsFailed(error.message)));
@@ -56,7 +44,7 @@ export const addStaffs = (staffs) => ({
 
 //add newstaff use "POST"
 
-export const postStaff = (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary) => (dispatch) => {
+export const postStaff = (id, name, salaryScale, doB, startDate, department, annualLeave, overTime, salary, image) => (dispatch) => {
 
     const newStaff = {
         id: id,
@@ -67,7 +55,8 @@ export const postStaff = (id, name, salaryScale, doB, startDate, department, ann
         department: department,
         annualLeave: annualLeave,
         overTime: overTime,
-        salary: salary
+        salary: salary,
+        image: image
     }
 
     return fetch(baseUrl + "staffs", {
@@ -121,7 +110,7 @@ export const deleteStaff = (id) => (dispatch) => {
         .then(() => {
             dispatch(DeleteStaff(id));
             dispatch(fetchStaffs());
-          })
+        })
         .catch(error => {
             console.log('delete Staff', error.message);
             alert('Your staff could not be delete\nError: ' + error.message);
@@ -188,8 +177,24 @@ export const fetchDepartments = () => (dispatch) => {
     dispatch(departmentsLoading(true));
 
     return fetch(baseUrl + 'departments')
+
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message)
+                throw errmess
+            }
+        )
         .then(response => response.json())
-        .then(departments => dispatch(addDepartments(departments)));
+        .then(departments => dispatch(addDepartments(departments)))
+        .catch(error => dispatch(departmentsFailed(error.message)))
 }
 
 export const departmentsLoading = () => ({
