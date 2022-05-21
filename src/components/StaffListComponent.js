@@ -6,16 +6,22 @@ import { Loading } from './LoadingComponent'
 import { Link } from 'react-router-dom'
 import NewStaff from './NewStaffComponent'
 import image from '../assets/images/alberto.png'
+import { FadeTransform } from 'react-animation-components'
 
 
 function RenderStaffList({ staff }) {
     return (
-        <Card>
-            <Link to={`/staffs/${staff.id}`} >
-                <CardImg src={image} alt={staff.name} />
-            </Link>
-            <CardTitle className='center'>{staff.name}</CardTitle>
-        </Card>
+        <FadeTransform in
+            transformProp={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+            <Card>
+                <Link to={`/staffs/${staff.id}`} >
+                    <CardImg src={image} alt={staff.name} />
+                </Link>
+                <CardTitle className='center'>{staff.name}</CardTitle>
+            </Card>
+        </FadeTransform>
     )
 }
 
