@@ -3,6 +3,7 @@ import { Card, CardText, Breadcrumb, BreadcrumbItem, CardImg, CardBody, Button }
 import dateFormat from 'dateformat'
 import { Link } from 'react-router-dom'
 import UpdateStaff from './UpdateStaff'
+import image from '../assets/images/alberto.png'
 
 
 function RenderStaff(props) {
@@ -14,14 +15,12 @@ function RenderStaff(props) {
             )
         }).map((staff, index) => {
             const Department = props.departments.departments.find((department) => department.id === staff.departmentId)
-            console.log(Department)
-
-  
+            console.log('okie', Department)
             return (
                 <Card className='col-md-12' key={index}>
                     <div className='row'>
                         <div className='col-s-12 col-md-4 col-lg-3'>
-                            <CardImg src={staff.image} alt={staff.name} style={{ width: "100%" }} />
+                            <CardImg src={image} alt={staff.name} style={{ width: "100%" }} />
                         </div>
                         <div className='col-s-12 col-md-8 col-lg-9'>
                             <CardBody>

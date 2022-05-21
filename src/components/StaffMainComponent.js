@@ -9,6 +9,9 @@ import Footer from './FooterComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { postStaff, fetchStaffs, fetchDepartments, fetchStaffssalary, deleteStaff, updateStaff } from '../redux/ActionCreators'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+
 
 
 
@@ -72,14 +75,18 @@ class Main extends Component {
         return (
             <div className='App'>
                 <Header />
-                <Switch>
-                    <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} postStaff={this.props.postStaff} />} />
-                    <Route exact path="/staffs/:staffId" component={StaffWithId} />
-                    <Route exact path="/department" component={() => <StaffDepartment departments={this.props.departments} />} />
-                    <Route exact path="/department/:idDept" component={DepartmentWithId} />
-                    <Route exact path="/salary" component={() => <StaffSalary staffssalary={this.props.staffssalary} />} />
-                    <Redirect to="/staffs" />
-                </Switch>
+                <TransitionGroup>
+                    <CSSTransition key={this.props.location.key} classNames='page' timeout={300}>
+                        <Switch>
+                            <Route exact path="/staffs" component={() => <Staffslist staffs={this.props.staffs} postStaff={this.props.postStaff} />} />
+                            <Route exact path="/staffs/:staffId" component={StaffWithId} />
+                            <Route exact path="/department" component={() => <StaffDepartment departments={this.props.departments} />} />
+                            <Route exact path="/department/:idDept" component={DepartmentWithId} />
+                            <Route exact path="/salary" component={() => <StaffSalary staffssalary={this.props.staffssalary} />} />
+                            <Redirect to="/staffs" />
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Footer />
             </div>
         )

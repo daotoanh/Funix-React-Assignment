@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Button, InputGroup, InputGroupText,
-    Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, Input
+    Modal, ModalHeader, ModalBody, Row, Col, Label
 } from 'reactstrap'
+
 
 
 const required = (val) => val && val.length;

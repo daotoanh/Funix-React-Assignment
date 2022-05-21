@@ -5,13 +5,14 @@ import {
 import { Loading } from './LoadingComponent'
 import { Link } from 'react-router-dom'
 import NewStaff from './NewStaffComponent'
+import image from '../assets/images/alberto.png'
 
 
 function RenderStaffList({ staff }) {
     return (
         <Card>
             <Link to={`/staffs/${staff.id}`} >
-                <CardImg src={staff.image} alt={staff.name} />
+                <CardImg src={image} alt={staff.name} />
             </Link>
             <CardTitle className='center'>{staff.name}</CardTitle>
         </Card>
@@ -46,7 +47,7 @@ const StaffList = (props) => {
                 <div key={staff.id} className='col-sm-12 col-md-6 col-lg-3 mt-3'>
                     <Link className='text-decoration-none text-dark' to={`/staffs/${staff.id}`}>
                         <Card body className="text-center">
-                            <CardImg width='100%' src={staff.image} alt={staff.name} />
+                            <CardImg width='100%' src={image} alt={staff.name} />
                             <CardTitle >{staff.name}</CardTitle>
                         </Card>
                     </Link>
